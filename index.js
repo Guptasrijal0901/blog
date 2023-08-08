@@ -9,11 +9,11 @@ blog.post("/api/postblog", async(req, res)=>{
     try {
         console.log(req.body)
         const newblog={
-            Blogername:req.body.name,
-            Blogtitle:req.body.title,
-            Blogdate:req.body.date,
-            Blogdescription:req.body.description,
-            Blogsummary:req.body.summary,
+            name:req.body.name,
+            title:req.body.title,
+            date:req.body.date,
+            description:req.body.description,
+            summary:req.body.summary,
         };
         const blogsave= new blogdetail(newblog);
         await blogsave.save();
@@ -25,7 +25,7 @@ blog.post("/api/postblog", async(req, res)=>{
 //read operation
 blog.get("/api/getblog", async (req , res)=>{
     try {
-        const data = await blogdetail.find();
+        const data = await blogdetail.find().sort({ createdAt: -1});
         return res.status(500).json({
         sucess: true,
         data: data
